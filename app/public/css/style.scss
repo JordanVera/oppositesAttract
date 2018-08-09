@@ -1,0 +1,29 @@
+$black: #000;
+$grey: #dcdcdc;
+$white: #fff;
+$red:   #ff0000;
+
+body {
+    background: $black;
+}
+
+#banner {
+    margin-top: 20vh;
+}
+
+#bannerIndex {
+    margin-top: 20vh;
+    height: 20rem;
+    width: 100%;
+    background: $grey;
+
+    #loveSurveyLink {
+        color: $white;
+        background: $red;
+        margin-top: 3rem;
+    }
+}
+
+.card {
+    margin-bottom: 10rem;
+}

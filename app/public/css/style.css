@@ -1,0 +1,20 @@
+body {
+  background: #000; }
+
+#banner {
+  margin-top: 20vh; }
+
+#bannerIndex {
+  margin-top: 20vh;
+  height: 20rem;
+  width: 100%;
+  background: #dcdcdc; }
+  #bannerIndex #loveSurveyLink {
+    color: #fff;
+    background: #ff0000;
+    margin-top: 3rem; }
+
+.card {
+  margin-bottom: 10rem; }
+
+/*# sourceMappingURL=style.css.map */
