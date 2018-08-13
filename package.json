@@ -1,21 +1,25 @@
 {
   "name": "oppositesattract",
   "version": "1.0.0",
-  "description": "dating app that matches you with your opposite counterpart",
+  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "engines": {
-    "node": "8.11.3"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JordanVera/oppositesAttract.git"
   },
   "author": "Jordan Vera",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JordanVera/oppositesAttract/issues"
+  },
+  "homepage": "https://github.com/JordanVera/oppositesAttract#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "npm": "^6.2.0",
     "path": "^0.12.7"
   }
 }
