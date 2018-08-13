@@ -11,6 +11,10 @@
   <!-- Compressed CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.0-rc.2/dist/css/foundation.min.css" integrity="sha256-iJQ8dZac/jUYHxiEnZJsyVpKcdq2sQvdA7t02QFmp30= sha384-SplqNBo/0ZlvSdwrP/riIPDozO5ck8+yIm++KVqyMAC53S6m3BaV+2OLpi7ULOOh sha512-ho6hK4sAWdCeqopNZWNy1d9Ok2hzfTLQLcGSr8ZlRzDzh6tNHkVoqSl6wgLsqls3yazwiG9H9dBCtSfPuiLRCQ==" crossorigin="anonymous">
   
+ <!-- Insert this within your head tag and after foundation.css -->
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/motion-ui@1.2.3/dist/motion-ui.min.css" />
+
+
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
   
   <link rel="stylesheet" href="css/style.css">
@@ -40,7 +44,7 @@
   	  	Take our quiz to find your soulmate
   	  </div>
   	  <div class="card-section">
-  	    <form id="loveMeLongTime" method="POST" action="data/users.js">
+  	    <form id="loveMeLongTime">
   			
   			<label>
                   Name
@@ -48,12 +52,12 @@
   			</label>
   			
   			<label>
-                  Email
-  				<input id="email" type="text" placeholder="thegreat@gmail.com">
+                  Photo URL
+  				<input id="photo" type="text" placeholder="thegreat@gmail.com">
   			</label>
   			
   			<label> Are you religous?
-                <select>
+                <select id="q1">
                     <option value="1">1 (not at all)</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -63,7 +67,7 @@
             </label>
   			
             <label> Do you get upset easily?
-                <select>
+                <select id="q2">
                     <option value="1">1 (not at all)</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -73,7 +77,7 @@
             </label>
               
             <label> Do you drink alchohol?
-                    <select>
+                    <select id="q3">
                         <option value="1">1 (not at all)</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -83,7 +87,7 @@
             </label>
 
             <label> Is it difficult for you to relate to other peoples feeling?
-                <select>
+                <select id="q4">
                     <option value="1">1 (not at all)</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -112,59 +116,99 @@
                 </select>
             </label> -->
 
-  			<button class="button expanded">Submit</button>
+  			<button id="submitForm" class="button expanded">Submit</button>
   		</form>
   	  </div>
   	</div>	
   </div>
   
+  <div id="apiDump"></div>
+
  
   <audio id="sexyAudio" src="media/bensound-sexy.mp3"></audio>
-  <!-- Compressed JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.0-rc.2/dist/js/foundation.min.js" integrity="sha256-G6jsRyH1fxbsvFIXSCuwYmI1aIDYBa28xscrvmYjJy0= sha384-vtoG68NvPc9azmFJr447vvY8qgdyA4FdaJ5/bqvzIM4eAdZfO0iyRRF8l2AAscYI sha512-43seCcNrHA0BQgrtyajB9sp8yOdv5c8QdYvgjP7zJ7v+dmzAcxYDQ2gupb9aztsNWBq1COIp/3NHYkQs4l/dkg=="
+
+ <!-- Example of selectively including files -->
+ <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.0-rc.2/dist/js/foundation.min.js" integrity="sha256-G6jsRyH1fxbsvFIXSCuwYmI1aIDYBa28xscrvmYjJy0= sha384-vtoG68NvPc9azmFJr447vvY8qgdyA4FdaJ5/bqvzIM4eAdZfO0iyRRF8l2AAscYI sha512-43seCcNrHA0BQgrtyajB9sp8yOdv5c8QdYvgjP7zJ7v+dmzAcxYDQ2gupb9aztsNWBq1COIp/3NHYkQs4l/dkg==" crossorigin="anonymous"></script>
-  <script src="js/scripts.js"></script>
+
+<!-- Compressed JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.5.0-rc.2/dist/js/foundation.min.js" integrity="sha256-G6jsRyH1fxbsvFIXSCuwYmI1aIDYBa28xscrvmYjJy0= sha384-vtoG68NvPc9azmFJr447vvY8qgdyA4FdaJ5/bqvzIM4eAdZfO0iyRRF8l2AAscYI sha512-43seCcNrHA0BQgrtyajB9sp8yOdv5c8QdYvgjP7zJ7v+dmzAcxYDQ2gupb9aztsNWBq1COIp/3NHYkQs4l/dkg==" crossorigin="anonymous"></script>
 
   <script>
-        window.onload = function() {
-          document.getElementById("sexyAudio").play(); 
+
+   const questions = document.querySelectorAll('select'),
+         submit    = document.querySelector('#submitForm');
+
+    window.onload = function() {
+        document.getElementById("sexyAudio").play(); 
+      }
+
+    submit.addEventListener('click', (e) => {
+        e.preventDefault();
+
+        const newUser = {
+            name: document.querySelector('#name').value,
+            photo: document.querySelector('#photo').value,
+            scores: [
+                document.querySelector('#q1').value,
+                document.querySelector('#q2').value,
+                document.querySelector('#q3').value,
+                document.querySelector('#q4').value
+            ]
         }
 
-        const currentUrl = window.location.origin;
+        console.log(newUser)
 
-        $.ajax({
-		url: currentURL + "/api/users",
-		method: "GET"
-	})
-	.done(function(tableData) {
-		console.log("------------------------------------");
-		console.log("URL: " + currentURL + "/api/tables");
-		console.log("------------------------------------");
-		console.log(tableData);
-		console.log("------------------------------------")
-		
-		
-		tableData.forEach(function(obj) {
-			const dump = document.querySelector('#apiDumpster')
+        const url = window.location.origin;
+        $.post(`${url}/api/users`, newUser)
+
+        $.get(`${url}/api/users`, (users) => {
+            console.log(users)
+            let match = users[users.length - 1];
+            
+            document.querySelector('#apiDump').innerHTML += `
+        <div class="reveal" id="exampleModal1" data-reveal>
+          <h2>Your Match</h2>
+          <p>${match.name}</p>
+          <img src="${match.photo}">
+          <button class="close-button" data-close aria-label="Close modal" type="button">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+            `
+
+        $('#exampleModal1').foundation()
+        $('#exampleModal1').foundation('open')
+        users.pop();
+        })
+    })
+
+//    let qs = [];
+//    questions.forEach(question => {
+//        qs.push(question.value)
+//    })
+
+//    console.log(qs)
+// tableData.forEach(function(obj) {
+		// 	const dump = document.querySelector('#apiDumpster')
 			
-			dump.innerHTML += `
-			<div class="results">
-					<div>
-						<p><span class="bold">name:</span> ${obj.name}</p>
+		// 	dump.innerHTML += `
+		// 	<div class="results">
+		// 			<div>
+		// 				<p><span class="bold">name:</span> ${obj.name}</p>
 						
-						<p><span class="bold">phone:</span> ${obj.phone}</p>
+		// 				<p><span class="bold">phone:</span> ${obj.phone}</p>
 						
-						<p><span class="bold">email:</span> ${obj.email}</p>
+		// 				<p><span class="bold">email:</span> ${obj.email}</p>
 						
-						<p><span class="bold">unique ID:</span> ${obj.unique}</p>
-					</div>
-				</div>
-			<hr />
-			`
-		})
-	});
-
+		// 				<p><span class="bold">unique ID:</span> ${obj.unique}</p>
+		// 			</div>
+		// 		</div>
+		// 	<hr />
+		// 	`
+		// })
     </script>
 </body>
 </html>
